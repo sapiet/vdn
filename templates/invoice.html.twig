@@ -1,0 +1,126 @@
+<style>
+	.text-right {
+		text-align: right;
+	}
+
+	table {
+		width: 100%;
+	}
+
+	.company {
+		margin-top: 20mm;
+		margin-left: 100mm;
+	}
+
+	.products {
+		margin-top: 20mm;
+		border-collapse: collapse;
+	}
+
+	.products th,
+	.products td {
+		padding: 2mm 4mm;
+		border: solid 1px #dddddd;
+	}
+
+	.products td.no-border {
+		border-left: none;
+		border-bottom: none;
+	}
+
+	.products th {
+		text-align: center;
+	}
+
+	.products td.designation {
+		width: 50%;
+	}
+
+	.products td.quantity {
+		width: 20%;
+		text-align: center;
+	}
+
+	.products td.price {
+		width: 30%;
+		text-align: right;
+	}
+
+	.total {
+		width: 800px;
+		border: solid;
+	}
+	.total th,
+	.total td {
+	}
+</style>
+
+<page backtop="7mm" backbottom="7mm" backleft="10mm" backright="10mm">
+    <page_header>
+    </page_header>
+
+    <page_footer>
+    </page_footer>
+
+	<div class="customer">
+		{{ customer.firstname }} {{ customer.lastname }}
+		<br>
+		{{ customer.address }}
+		{% if customer.suburb %}
+			<br>
+			{{ customer.suburb }}
+		{% endif %}
+		<br>
+		{{ customer.zipcode }} {{ customer.city }}
+	</div>
+
+	<div class="company">
+		{{ company.name }}
+		<br>
+		{{ company.address }}
+		{% if company.suburb %}
+			<br>
+			{{ company.suburb }}
+		{% endif %}
+		<br>
+		{{ company.zipcode }} {{ company.city }}
+	</div>
+
+	<table class="products">
+		<tr>
+			<th class="designation">
+				Désignation
+			</th>
+			<th class="quantity">
+				Quantité
+			</th>
+			<th class="price" colspan="2">
+				Prix
+			</th>
+		</tr>
+
+		{% for product in products %}
+		    <tr>
+				<td class="designation">
+					{{ product.designation }}
+				</td>
+				<td class="quantity">
+					{{ product.quantity }}
+				</td>
+				<td class="price" colspan="2">
+					{{ product.price }}
+				</td>
+		    </tr>
+		{% endfor %}
+
+		<tr>
+			<td colspan="2" class="no-border"></td>
+			<td class="no-border">
+				Total
+			</td>
+			<td class="no-border">
+				32€
+			</td>
+		</tr>
+	</table>
+ </page>
