@@ -8,12 +8,18 @@ use App\Data\Customer;
 use App\Data\Company;
 use App\Data\Products;
 use App\Services\Date;
+use DateTime;
 
 class DefaultController extends AbstractController
 {
 	public function index()
 	{
-		$daysCount = Date::getDaysCountInMonth(2018, 9);
+		$date = new DateTime();
+		$month = $date->format('m');
+		$year = $date->format('Y');
+
+		$html = '';
+		$daysCount = Date::getDaysCountInMonth($month, $year);
 		$company = Company::DATA;
 		$products = Products::LIST;
 
@@ -32,7 +38,7 @@ class DefaultController extends AbstractController
 					$customerProducts[] = [
 						'designation' => $product['designation'],
 						'quantity' => $quantity,
-						'price' => round($quantity * $product['price']).'€',
+						'price' => round($quantity * $product['price'], 2),
 					];
 				}
 			}
@@ -41,12 +47,13 @@ class DefaultController extends AbstractController
 				return $sum += $item['price'];
 			}, 0), 2).'€';
 
-			$templateVars = compact('company', 'customer', 'customerProducts', 'total');
-
-			$html2pdf = new Html2Pdf();
-			$html2pdf->writeHTML($this->renderView('invoice.html.twig', $templateVars));
-			$html2pdf->output();
-			//$html2pdf->output('/Users/xavierquievre/Sites/vdn/facture.pdf', 'F');
+			$templateVars = compact('company', 'customer', 'customerProducts', 'total', 'date');
+			$html .= $this->renderView('invoice.html.twig', $templateVars);
 		}
+
+		$html2pdf = new Html2Pdf();
+		$html2pdf->writeHTML($html);
+		$html2pdf->output();
+		//$html2pdf->output('/Users/xavierquievre/Sites/vdn/'.$customer['lastname'].' '.$customer['firstname'].'.pdf', 'F');
 	}
 }

@@ -7,9 +7,13 @@
 		width: 100%;
 	}
 
-	.company {
+	.customer {
 		margin-top: 20mm;
 		margin-left: 100mm;
+	}
+
+	.title {
+		margin-top: 20mm;
 	}
 
 	.products {
@@ -62,6 +66,18 @@
     <page_footer>
     </page_footer>
 
+	<div class="company">
+		{{ company.name }}
+		<br>
+		{{ company.address }}
+		{% if company.suburb %}
+			<br>
+			{{ company.suburb }}
+		{% endif %}
+		<br>
+		{{ company.zipcode }} {{ company.city }}
+	</div>
+
 	<div class="customer">
 		{{ customer.firstname }} {{ customer.lastname }}
 		<br>
@@ -74,17 +90,9 @@
 		{{ customer.zipcode }} {{ customer.city }}
 	</div>
 
-	<div class="company">
-		{{ company.name }}
-		<br>
-		{{ company.address }}
-		{% if company.suburb %}
-			<br>
-			{{ company.suburb }}
-		{% endif %}
-		<br>
-		{{ company.zipcode }} {{ company.city }}
-	</div>
+	<h2 class="title">
+		Facturation pour le mois {{ date|date('m/Y') }}
+	</h2>
 
 	<table class="products">
 		<tr>
@@ -108,7 +116,7 @@
 					{{ product.quantity }}
 				</td>
 				<td class="price" colspan="2">
-					{{ product.price }}
+					{{ product.price }}€
 				</td>
 		    </tr>
 		{% endfor %}
@@ -118,7 +126,7 @@
 			<td class="no-border">
 				Total
 			</td>
-			<td class="no-border">
+			<td class="no-border text-right">
 				{{ total }}
 			</td>
 		</tr>

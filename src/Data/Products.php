@@ -9,6 +9,11 @@ class Products
             'designation' => 'Journal la Voix du Nord',
             'days' => [0, 2, 4, 6],
             'price' => 1.25,
+        ],
+        'test' => [
+            'designation' => 'Test',
+            'days' => [0],
+            'price' => 1,
         ]
     ];
 }

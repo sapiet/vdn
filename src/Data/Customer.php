@@ -12,7 +12,15 @@ class Customer
 			'suburb' => '',
 			'zipcode' => '59700',
 			'city' => 'Marcq-en-Baroeul',
-			'subscriptions' => ['vdn']
+			'subscriptions' => ['vdn', 'test']
+		],[
+			'firstname' => 'Sandra',
+			'lastname' => 'Vanhove',
+			'address' => '7 allée des Coutilliers',
+			'suburb' => '',
+			'zipcode' => '59700',
+			'city' => 'Marcq-en-Baroeul',
+			'subscriptions' => ['test']
 		]
 	];
 }
