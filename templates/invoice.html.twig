@@ -99,7 +99,7 @@
 			</th>
 		</tr>
 
-		{% for product in products %}
+		{% for product in customerProducts %}
 		    <tr>
 				<td class="designation">
 					{{ product.designation }}
@@ -119,7 +119,7 @@
 				Total
 			</td>
 			<td class="no-border">
-				32€
+				{{ total }}
 			</td>
 		</tr>
 	</table>

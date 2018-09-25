@@ -6,34 +6,42 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Spipu\Html2Pdf\Html2Pdf;
 use App\Data\Customer;
 use App\Data\Company;
+use App\Data\Products;
+use App\Services\Date;
 
 class DefaultController extends AbstractController
 {
 	public function index()
 	{
-		foreach (Customer::LIST as $customer) {
-			$company = Company::DATA;
-			$products = [
-				[
-					'designation' => 'Journal La Voix du Nord',
-					'quantity' => 1,
-					'price' => '1.25€',
-				],[
-					'designation' => 'Journal La Voix du Nord',
-					'quantity' => 1,
-					'price' => '1.25€',
-				],[
-					'designation' => 'Journal La Voix du Nord',
-					'quantity' => 1,
-					'price' => '1.25€',
-				],[
-					'designation' => 'Journal La Voix du Nord',
-					'quantity' => 1,
-					'price' => '1.25€',
-				],
-			];
+		$daysCount = Date::getDaysCountInMonth(2018, 9);
+		$company = Company::DATA;
+		$products = Products::LIST;
 
-			$templateVars = compact('company', 'customer', 'products');
+		foreach (Customer::LIST as $customer) {
+			$customerProducts = [];
+
+			foreach ($customer['subscriptions'] as $subscription) {
+				$product = $products[$subscription];
+				$quantity = 0;
+
+				foreach ($product['days'] as $day) {
+					$quantity += $daysCount[$day];
+				}
+
+				if ($quantity > 0) {
+					$customerProducts[] = [
+						'designation' => $product['designation'],
+						'quantity' => $quantity,
+						'price' => round($quantity * $product['price']).'€',
+					];
+				}
+			}
+
+			$total = round(array_reduce($customerProducts, function($sum, $item) {
+				return $sum += $item['price'];
+			}, 0), 2).'€';
+
+			$templateVars = compact('company', 'customer', 'customerProducts', 'total');
 
 			$html2pdf = new Html2Pdf();
 			$html2pdf->writeHTML($this->renderView('invoice.html.twig', $templateVars));

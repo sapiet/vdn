@@ -12,7 +12,7 @@ class Customer
 			'suburb' => '',
 			'zipcode' => '59700',
 			'city' => 'Marcq-en-Baroeul',
-
+			'subscriptions' => ['vdn']
 		]
 	];
 }
