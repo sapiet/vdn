@@ -12,7 +12,7 @@ class Customer
 			'suburb' => '',
 			'zipcode' => '59700',
 			'city' => 'Marcq-en-Baroeul',
-			'subscriptions' => ['vdn', 'test']
+			'subscriptions' => ['vdn', 'vdn2', 'vds']
 		],[
 			'firstname' => 'Sandra',
 			'lastname' => 'Vanhove',
@@ -20,7 +20,23 @@ class Customer
 			'suburb' => '',
 			'zipcode' => '59700',
 			'city' => 'Marcq-en-Baroeul',
-			'subscriptions' => ['test']
+			'subscriptions' => ['vdn']
+		],[
+			'firstname' => 'Christine',
+			'lastname' => 'Quièvre',
+			'address' => '11 rue des Enseignes',
+			'suburb' => '',
+			'zipcode' => '59700',
+			'city' => 'Marcq-en-Baroeul',
+			'subscriptions' => ['vds']
+		],[
+			'firstname' => 'Robert',
+			'lastname' => '',
+			'address' => '',
+			'suburb' => '',
+			'zipcode' => '59700',
+			'city' => 'Marcq-en-Baroeul',
+			'subscriptions' => []
 		]
 	];
 }

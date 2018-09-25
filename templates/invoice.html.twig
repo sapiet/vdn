@@ -13,7 +13,7 @@
 	}
 
 	.title {
-		margin-top: 20mm;
+		margin-top: 30mm;
 	}
 
 	.products {
@@ -24,7 +24,11 @@
 	.products th,
 	.products td {
 		padding: 2mm 4mm;
-		border: solid 1px #dddddd;
+		border: solid 1px #ddd;
+	}
+
+	.products th {
+		background: #eee;
 	}
 
 	.products td.no-border {
@@ -37,25 +41,22 @@
 	}
 
 	.products td.designation {
-		width: 50%;
+		width: 40%;
 	}
 
-	.products td.quantity {
-		width: 20%;
+	.products td.quantity,
+	.products td.price {
+		width: 15%;
 		text-align: center;
 	}
 
-	.products td.price {
+	.products td.total-price {
 		width: 30%;
 		text-align: right;
 	}
 
 	.total {
-		width: 800px;
-		border: solid;
-	}
-	.total th,
-	.total td {
+		border-right: none;
 	}
 </style>
 
@@ -91,7 +92,7 @@
 	</div>
 
 	<h2 class="title">
-		Facturation pour le mois {{ date|date('m/Y') }}
+		Facturation pour le mois {{ date }}
 	</h2>
 
 	<table class="products">
@@ -102,7 +103,10 @@
 			<th class="quantity">
 				Quantité
 			</th>
-			<th class="price" colspan="2">
+			<th class="price">
+				Prix unitaire
+			</th>
+			<th class="total-price" colspan="2">
 				Prix
 			</th>
 		</tr>
@@ -115,18 +119,21 @@
 				<td class="quantity">
 					{{ product.quantity }}
 				</td>
-				<td class="price" colspan="2">
-					{{ product.price }}€
+				<td class="price">
+					{{ product.formatedPrice }}
+				</td>
+				<td class="total-price" colspan="2">
+					{{ product.totalFormatedPrice }}
 				</td>
 		    </tr>
 		{% endfor %}
 
 		<tr>
-			<td colspan="2" class="no-border"></td>
-			<td class="no-border">
+			<td colspan="3" class="no-border"></td>
+			<td class="total">
 				Total
 			</td>
-			<td class="no-border text-right">
+			<td class="text-right">
 				{{ total }}
 			</td>
 		</tr>
