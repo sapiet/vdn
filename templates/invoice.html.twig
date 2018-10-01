@@ -44,6 +44,11 @@
 		width: 40%;
 	}
 
+	.products td.designation .details {
+		color: #999;
+		font-size: 10px;
+	}
+
 	.products td.quantity,
 	.products td.price {
 		width: 15%;
@@ -58,6 +63,23 @@
 	.total {
 		border-right: none;
 	}
+
+	.delivery-man {
+		padding-left: 8mm;
+	}
+
+	.footer {
+		font-size: 11px;
+	}
+
+	.footer .left {
+		width: 70%;
+	}
+
+	.footer .right {
+		text-align: right;
+		width: 30%;
+	}
 </style>
 
 <page backtop="7mm" backbottom="7mm" backleft="10mm" backright="10mm">
@@ -65,6 +87,18 @@
     </page_header>
 
     <page_footer>
+    	<table class="footer">
+    		<tr>
+    			<td class="left">
+    				* Dont TVA (2,10%) réglée par l'éditeur (art 298 undecies du CGI)
+    				<br>
+    				&nbsp;&nbsp;&nbsp;Règlement sans escompte à réception
+    			</td>
+    			<td class="right">
+    				C.C.P 2042172X026
+    			</td>
+    		</tr>
+    	</table>
     </page_footer>
 
 	<div class="company">
@@ -80,7 +114,7 @@
 	</div>
 
 	<div class="customer">
-		{{ customer.firstname }} {{ customer.lastname }}
+		{{ customer.name }}
 		<br>
 		{{ customer.address }}
 		{% if customer.suburb %}
@@ -92,7 +126,7 @@
 	</div>
 
 	<h2 class="title">
-		Facturation pour le mois {{ date }}
+		Facturation pour le mois {{ formatedDate }}
 	</h2>
 
 	<table class="products">
@@ -115,6 +149,12 @@
 		    <tr>
 				<td class="designation">
 					{{ product.designation }}
+					<br>
+					<span class="details">
+						{% for day, count in product.countByDays %}
+						    {{ count }}&nbsp;{{ day }}{{ count > 1 ? 's' : '' }}{% if not loop.last %},{% endif %}
+						{% endfor %}
+					</span>
 				</td>
 				<td class="quantity">
 					{{ product.quantity }}
@@ -131,11 +171,33 @@
 		<tr>
 			<td colspan="3" class="no-border"></td>
 			<td class="total">
-				Total
+				Total *
 			</td>
 			<td class="text-right">
 				{{ total }}
 			</td>
 		</tr>
 	</table>
+
+	<br><br><br><br>
+
+	<p>
+		Les chèques sont à établir à l'ordre de
+		et à envoyer ou déposer avant le {{ formatedLimitPaymentDate }} à:
+		<br>
+		<br>
+		<div class="delivery-man">
+			{{ deliveryMan.name }}
+			<br>
+			{{ deliveryMan.address }}
+			<br>
+			{{ deliveryMan.zipcode }}
+			{{ deliveryMan.city }}
+			<br>
+			03 20 74 38 59
+		</div>
+		<br>
+		<br>
+		Merci.
+	</p>
  </page>
