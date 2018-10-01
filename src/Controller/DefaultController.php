@@ -115,7 +115,6 @@ class DefaultController extends AbstractController
 				$templateVars = compact('company', 'customer', 'customerProducts', 'total', 'formatedDate', 'deliveryMan', 'formatedLimitPaymentDate');
 				$html .= $this->renderView('invoice.html.twig', $templateVars);
 			}
-			break;
 		}
 
 		$html2pdf = new Html2Pdf();
