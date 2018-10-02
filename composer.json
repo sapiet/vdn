@@ -6,6 +6,8 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "sensio/framework-extra-bundle": "^5.1",
+        "sonata-project/admin-bundle": "^3.39",
+        "sonata-project/doctrine-orm-admin-bundle": "^3.6",
         "spipu/html2pdf": "^5.2",
         "symfony/asset": "*",
         "symfony/console": "*",
@@ -27,6 +29,7 @@
         "twig/twig": "^2.0"
     },
     "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^3.0",
         "symfony/debug-pack": "*",
         "symfony/dotenv": "*",
         "symfony/maker-bundle": "^1.0",

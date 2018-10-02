@@ -1,18 +1,18 @@
 <?php
 
-namespace AppBundle\DataFixtures;
+namespace App\DataFixtures;
 
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
-use AppBundle\Entity\Company;
-use AppBundle\Entity\DeliveryMan;
-use AppBundle\Entity\Product;
-use AppBundle\Entity\Customer;
-use AppBundle\Entity\Subscription;
-use AppBundle\Data\Company as CompanyData;
-use AppBundle\Data\DeliveryMan as DeliveryManData;
-use AppBundle\Data\Products;
-use AppBundle\Data\Customer as CustomerData;
+use App\Entity\Company;
+use App\Entity\DeliveryMan;
+use App\Entity\Product;
+use App\Entity\Customer;
+use App\Entity\Subscription;
+use App\Data\Company as CompanyData;
+use App\Data\DeliveryMan as DeliveryManData;
+use App\Data\Products;
+use App\Data\Customer as CustomerData;
 
 class AppFixtures extends Fixture
 {

@@ -71,18 +71,7 @@ class Customer
 				'fem' => [],
 			],
 		],[
-			'name' => 'Mr PELLUAULT',
-			'address' => '268 Avenue De Lattre de Tassigny',
-			'suburb' => '',
-			'zipcode' => '59700',
-			'city' => 'Marcq-en-Baroeul',
-			'subscriptions' => [
-				'vdn' => [],
-				'tv' => [],
-				'fem' => [],
-			],
-		],[
-			'name' => 'Mr BAROIS',
+			'name' => 'Mr BAROIS Didier',
 			'address' => '281 Avenue De Lattre de Tassigny',
 			'suburb' => '',
 			'zipcode' => '59700',
@@ -110,7 +99,7 @@ class Customer
 			'zipcode' => '59700',
 			'city' => 'Marcq-en-Baroeul',
 			'subscriptions' => [
-				'vdn' => ['days' => [1, 5, 6]],
+				'vdn' => ['days' => [0, 2, 3, 4, 5, 6]],
 				'tv' => [],
 				'fem' => [],
 			],
@@ -171,7 +160,7 @@ class Customer
 			],
 		],[
 			'name' => 'Mme COUTURE VERMESSE',
-			'address' => '4 Allée du Millenaires',
+			'address' => '4 Allée du Millénaire',
 			'suburb' => '',
 			'zipcode' => '59700',
 			'city' => 'Marcq-en-Baroeul',
@@ -229,7 +218,7 @@ class Customer
 			'zipcode' => '59700',
 			'city' => 'Marcq-en-Baroeul',
 			'subscriptions' => [
-				'vdn' => ['days' => [0, 5, 6]],
+				'vdn' => ['days' => [0, 5]],
 				'tv' => [],
 				'fem' => [],
 			],
@@ -366,6 +355,83 @@ class Customer
 		],[
 			'name' => 'Mr ROLAND Jean',
 			'address' => '1 rue du Grand Pavois',
+			'suburb' => '',
+			'zipcode' => '59700',
+			'city' => 'Marcq-en-Baroeul',
+			'subscriptions' => [
+				'vdn' => [],
+				'tv' => [],
+				'fem' => [],
+			],
+		],[
+			'name' => 'Mr PILLE',
+			'address' => '6, rue Montgolfier',
+			'suburb' => '',
+			'zipcode' => '59700',
+			'city' => 'Marcq-en-Baroeul',
+			'subscriptions' => [
+				'vdn' => [],
+				'tv' => [],
+				'fem' => [],
+			],
+		],[
+			'name' => 'Mr DEBUCQUOY Gaston',
+			'address' => '36, rue Sébastopol',
+			'suburb' => '',
+			'zipcode' => '59700',
+			'city' => 'Marcq-en-Baroeul',
+			'subscriptions' => [
+				'vdn' => [],
+				'tv' => [],
+				'fem' => [],
+			],
+		],[
+			'name' => 'Mme GLAS',
+			'address' => '67, rue Montgolfier',
+			'suburb' => '',
+			'zipcode' => '59700',
+			'city' => 'Marcq-en-Baroeul',
+			'subscriptions' => [
+				'vdn' => [],
+				'tv' => [],
+				'fem' => [],
+			],
+		],[
+			'name' => 'Mr POTEAU Gérard',
+			'address' => '5, rue Philippe de Girard',
+			'suburb' => '',
+			'zipcode' => '59700',
+			'city' => 'Marcq-en-Baroeul',
+			'subscriptions' => [
+				'vdn' => [],
+				'tv' => [],
+				'fem' => [],
+			],
+		],[
+			'name' => 'Mme LIPPENS Carmen',
+			'address' => '9, rue Augustin Bourdon',
+			'suburb' => '',
+			'zipcode' => '59700',
+			'city' => 'Marcq-en-Baroeul',
+			'subscriptions' => [
+				'vdn' => [],
+				'tv' => [],
+				'fem' => [],
+			],
+		],[
+			'name' => 'Mr DERYCKE René',
+			'address' => '54, avenue de Lattre de Tassigny',
+			'suburb' => '',
+			'zipcode' => '59700',
+			'city' => 'Marcq-en-Baroeul',
+			'subscriptions' => [
+				'vdn' => [],
+				'tv' => [],
+				'fem' => [],
+			],
+		],[
+			'name' => 'Mr BINAUT Alain',
+			'address' => '58, avenue de Lattre de Tassigny',
 			'suburb' => '',
 			'zipcode' => '59700',
 			'city' => 'Marcq-en-Baroeul',

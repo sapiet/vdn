@@ -5,11 +5,11 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Spipu\Html2Pdf\Html2Pdf;
-use AppBundle\Data\Customer;
-use AppBundle\Data\Company;
-use AppBundle\Data\Products;
-use AppBundle\Data\DeliveryMan;
-use AppBundle\Services\Date;
+use App\Data\Customer;
+use App\Data\Company;
+use App\Data\Products;
+use App\Data\DeliveryMan;
+use App\Services\Date;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Exception;
@@ -44,14 +44,14 @@ class DefaultController extends AbstractController
 
     const CURRENCY = '€';
 
-    public function indexAction(Request $request)
+    public function index(Request $request)
     {
         if ($request->query->has('month') && $request->query->has('year')) {
             $selectedMonth = $request->query->get('month');
             $selectedYear = $request->query->get('year');
             $selectedDate = new DateTimeImmutable($selectedYear.'-'.$selectedMonth.'-01');
-            //$this->process($selectedDate);
-            $this->processOld($selectedDate);
+            $this->process($selectedDate);
+            //$this->processOld($selectedDate);
         }
 
         $currentDate = new DateTime();
@@ -74,51 +74,53 @@ class DefaultController extends AbstractController
         $daysCount = Date::getDaysCountInMonth($month, $year);
 
         $manager = $this->getDoctrine()->getManager();
-        $company = $manager->getRepository('AppBundle:Company')->findAll()[0];
+        $company = $manager->getRepository('App:Company')->findAll()[0];
 
         $products = [];
-        foreach ($manager->getRepository('AppBundle:Product')->findAll() as $product) {
+        foreach ($manager->getRepository('App:Product')->findAll() as $product) {
             $products[$product->getCode()] = $product;
         }
 
-        $deliveryMan = $manager->getRepository('AppBundle:DeliveryMan')->findAll()[0];
+        $deliveryMan = $manager->getRepository('App:DeliveryMan')->findAll()[0];
         $limitPaymentDate = $date->modify('+1 month');
         $formatedLimitPaymentDate = '10 '.$this->formatDate($limitPaymentDate);
 
         foreach ($deliveryMan->getCustomers() as $customer) {
             $customerProducts = [];
 
-            foreach ($customer->getSubscriptions() as $subscription) {
-                $product = $subscription->getProduct();
-                $quantity = 0;
+            if ($customer->getName() == 'Mme LEVY JOSE') {
+                foreach ($customer->getSubscriptions() as $subscription) {
+                    $product = $subscription->getProduct();
+                    $quantity = 0;
 
-                $countByDays = [];
+                    $countByDays = [];
 
-                foreach ($subscription->getDays() ? $subscription->getDays() : $product->getDays() as $day) {
-                    $countByDays[self::DAYS[$day]] = $daysCount[$day];
+                    foreach ($subscription->getDays() ? $subscription->getDays() : $product->getDays() as $day) {
+                        $countByDays[self::DAYS[$day]] = $daysCount[$day];
+                    }
+
+                    $quantity = array_sum($countByDays);
+
+                    $customerProducts[] = [
+                        'designation' => $product->getDesignation(),
+                        'quantity' => $quantity,
+                        'formatedPrice' => $this->formatPrice($product->getPrice()),
+                        'totalPrice' => round($quantity * $product->getPrice(), 2),
+                        'totalFormatedPrice' => $this->formatPrice($quantity * $product->getPrice()),
+                        'countByDays' => $countByDays
+                    ];
                 }
 
-                $quantity = array_sum($countByDays);
+                if (!empty($customerProducts)) {
+                    $total = number_format(array_reduce($customerProducts, function($sum, $item) {
+                        return $sum += $item['totalPrice'];
+                    }, 0), 2, ',', ' ').'€';
 
-                $customerProducts[] = [
-                    'designation' => $product->getDesignation(),
-                    'quantity' => $quantity,
-                    'formatedPrice' => $this->formatPrice($product->getPrice()),
-                    'totalPrice' => round($quantity * $product->getPrice(), 2),
-                    'totalFormatedPrice' => $this->formatPrice($quantity * $product->getPrice()),
-                    'countByDays' => $countByDays
-                ];
-            }
+                    $formatedDate = $this->prefixDate($date);
 
-            if (!empty($customerProducts)) {
-                $total = number_format(array_reduce($customerProducts, function($sum, $item) {
-                    return $sum += $item['totalPrice'];
-                }, 0), 2, ',', ' ').'€';
-
-                $formatedDate = $this->prefixDate($date);
-
-                $templateVars = compact('company', 'customer', 'customerProducts', 'total', 'formatedDate', 'deliveryMan', 'formatedLimitPaymentDate');
-                $html .= $this->renderView('invoice.html.twig', $templateVars);
+                    $templateVars = compact('company', 'customer', 'customerProducts', 'total', 'formatedDate', 'deliveryMan', 'formatedLimitPaymentDate');
+                    $html .= $this->renderView('invoice.html.twig', $templateVars);
+                }
             }
         }
 

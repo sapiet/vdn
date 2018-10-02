@@ -33,6 +33,11 @@ class Subscription
      */
     private $days;
 
+    public function __toString()
+    {
+        return $this->product->getDesignation();
+    }
+
     /**
      * @return mixed
      */
