@@ -64,13 +64,13 @@ class Customer
     private $deliveryMan;
 
     /**
-     * @ORM\OneToMany(targetEntity="CustomerProduct", mappedBy="customer")
+     * @ORM\OneToMany(targetEntity="Subscription", mappedBy="customer")
      */
-    private $customerProducts;
+    private $subscriptions;
 
     public function __construct()
     {
-        $this->customerProducts = new ArrayCollection();
+        $this->subscriptions = new ArrayCollection();
     }
 
     /**
@@ -226,19 +226,19 @@ class Customer
     /**
      * @return mixed
      */
-    public function getCustomerProducts()
+    public function getSubscriptions()
     {
-        return $this->customerProducts;
+        return $this->subscriptions;
     }
 
     /**
-     * @param mixed $customerProducts
+     * @param mixed $subscriptions
      *
      * @return self
      */
-    public function setCustomerProducts($customerProducts)
+    public function setSubscriptions($subscriptions)
     {
-        $this->customerProducts = $customerProducts;
+        $this->subscriptions = $subscriptions;
 
         return $this;
     }

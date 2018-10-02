@@ -5,23 +5,23 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CustomerProduct
+ * Subscription
  *
- * @ORM\Table(name="customer_product")
- * @ORM\Entity(repositoryClass="App\Repository\CustomerProductRepository")
+ * @ORM\Table(name="subscription")
+ * @ORM\Entity(repositoryClass="App\Repository\SubscriptionRepository")
  */
-class CustomerProduct
+class Subscription
 {
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="customerProducts")
+     * @ORM\ManyToOne(targetEntity="Customer", inversedBy="subscriptions")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     private $customer;
 
     /**
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Product", inversedBy="customerProducts")
+     * @ORM\ManyToOne(targetEntity="Product", inversedBy="subscriptions")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
     private $product;
@@ -29,7 +29,7 @@ class CustomerProduct
     /**
      * @var array
      *
-     * @ORM\Column(name="days", type="simple_array")
+     * @ORM\Column(name="days", type="simple_array", nullable=true)
      */
     private $days;
 

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Product
@@ -45,14 +46,19 @@ class Product
     /**
      * @var float
      *
-     * @ORM\Column(name="price", type="decimal")
+     * @ORM\Column(name="price", type="float")
      */
     private $price;
 
     /**
-     * @ORM\OneToMany(targetEntity="CustomerProduct", mappedBy="product")
+     * @ORM\OneToMany(targetEntity="Subscription", mappedBy="product")
      */
-    private $customerProducts;
+    private $subscriptions;
+
+    public function __construct()
+    {
+        $this->subscriptions = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -157,19 +163,19 @@ class Product
     /**
      * @return mixed
      */
-    public function getCustomerProducts()
+    public function getSubscriptions()
     {
-        return $this->customerProducts;
+        return $this->subscriptions;
     }
 
     /**
-     * @param mixed $customerProducts
+     * @param mixed $subscriptions
      *
      * @return self
      */
-    public function setCustomerProducts($customerProducts)
+    public function setSubscriptions($subscriptions)
     {
-        $this->customerProducts = $customerProducts;
+        $this->subscriptions = $subscriptions;
 
         return $this;
     }
