@@ -6,6 +6,31 @@ use DateTime;
 
 class Date
 {
+    const MONTHS = [
+        'janvier',
+        'février',
+        'mars',
+        'avril',
+        'mai',
+        'juin',
+        'juillet',
+        'août',
+        'septembre',
+        'octobre',
+        'novembre',
+        'décembre',
+    ];
+
+    const DAYS = [
+        'dimanche',
+        'lundi',
+        'mardi',
+        'mercredi',
+        'jeudi',
+        'vendredi',
+        'samedi',
+    ];
+
     public static function getDaysCountInMonth(int $month, int $year)
     {
         $daysCount = [];

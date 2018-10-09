@@ -13,14 +13,21 @@ use Doctrine\ORM\Mapping as ORM;
 class Subscription
 {
     /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
      * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
      * @ORM\ManyToOne(targetEntity="Customer", inversedBy="subscriptions")
      * @ORM\JoinColumn(name="customer_id", referencedColumnName="id")
      */
     private $customer;
 
     /**
-     * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Product", inversedBy="subscriptions")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      */
@@ -33,9 +40,24 @@ class Subscription
      */
     private $days;
 
-    public function __toString()
+    /**
+     * @return int
+     */
+    public function getId()
     {
-        return $this->product->getDesignation();
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     *
+     * @return self
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**

@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}
+	<style>
+		input[type="checkbox"] {
+			margin: 0 5px 0 10px;
+		}
+	</style>
+{% endblock %}
+{% block javascripts %}{% endblock %}
+
+{% block body %}
+	<div class="container">
+		<div class="row">
+			<div class="col-sm-12">
+				<h1>Édition des abonnements du client {{ customer.getName() }}</h1>
+				<form action="{{ path('customer_subscription', {customerId: customer.getId()}) }}" method="post">
+					<table class="table">
+						<tr>
+							<th>#</th>
+							<th>Produit</th>
+							<th>Jours</th>
+							<th>Actions</th>
+						</tr>
+						{% for subscription in customer.getSubscriptions() %}
+						    <tr>
+						    	<td>{{ subscription.getId() }}</td>
+						    	<td>{{ subscription.getProduct().getDesignation() }}</td>
+						    	<td>
+						    		{% set days = subscription.getDays() ? subscription.getDays() : subscription.getProduct().getDays() %}
+						    		{% for day in days %}
+						    		    {{ formatedDays[day] }}{% if not loop.last %},{% endif %}
+						    		{% endfor %}
+						    	</td>
+						    	<td>
+						    		<a
+						    			href="{{ path('customer_subscription_delete', {subscriptionId: subscription.getId()}) }}"
+						    			class="btn btn-outline-dark"
+						    		>
+						    			Supprimer
+						    		</a>
+						    	</td>
+						    </tr>
+						{% endfor %}
+						<tr>
+							<td></td>
+							<td>
+								{{ form_widget(form.product) }}
+							</td>
+							<td>{{ form_widget(form.days) }}</td>
+							<td>
+								{{ form_widget(form._token) }}
+								<button type="submit" class="btn btn-outline-dark">
+									Créer
+								</button>
+								{{ form_errors(form) }}
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -65,6 +65,12 @@ class DeliveryMan
     private $phone;
 
     /**
+     * @ORM\ManyToOne(targetEntity="Company", inversedBy="deliveryMen")
+     * @ORM\JoinColumn(name="company_id", referencedColumnName="id")
+     */
+    private $company;
+
+    /**
      * @ORM\OneToMany(targetEntity="Customer", mappedBy="deliveryMan")
      */
     private $customers;
@@ -72,11 +78,6 @@ class DeliveryMan
     public function __construct()
     {
         $this->customers = new ArrayCollection();
-    }
-
-    public function __toString()
-    {
-        return $this->name;
     }
 
     /**
@@ -231,6 +232,26 @@ class DeliveryMan
     public function getPhone()
     {
         return $this->phone;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * @param mixed $company
+     *
+     * @return self
+     */
+    public function setCompany($company)
+    {
+        $this->company = $company;
+
+        return $this;
     }
 
     /**

@@ -1,3 +1,13 @@
 index:
    path: /
    controller: App\Controller\DefaultController::index
+
+customer_subscription:
+   path: /customer/{customerId}/subscriptions
+   controller: App\Controller\DefaultController::customerSubscriptions
+   methods: [GET, POST]
+
+customer_subscription_delete:
+   path: /customer/subscriptions/delete/{subscriptionId}
+   controller: App\Controller\DefaultController::deleteCustomerSubscription
+   methods: [GET]

@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Company
@@ -55,6 +56,23 @@ class Company
      * @ORM\Column(name="city", type="string", length=255)
      */
     private $city;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="bank_account", type="string", length=255)
+     */
+    private $bankAccount;
+
+    /**
+     * @ORM\OneToMany(targetEntity="DeliveryMan", mappedBy="company")
+     */
+    private $deliveryMen;
+
+    public function __construct()
+    {
+        $this->deliveryMen = new ArrayCollection();
+    }
 
 
     /**
@@ -185,6 +203,46 @@ class Company
     public function getCity()
     {
         return $this->city;
+    }
+
+    /**
+     * @return string
+     */
+    public function getBankAccount()
+    {
+        return $this->bankAccount;
+    }
+
+    /**
+     * @param string $bankAccount
+     *
+     * @return self
+     */
+    public function setBankAccount($bankAccount)
+    {
+        $this->bankAccount = $bankAccount;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDeliveryMen()
+    {
+        return $this->deliveryMen;
+    }
+
+    /**
+     * @param mixed $deliveryMen
+     *
+     * @return self
+     */
+    public function setDeliveryMen($deliveryMen)
+    {
+        $this->deliveryMen = $deliveryMen;
+
+        return $this;
     }
 }
 
