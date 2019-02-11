@@ -31,6 +31,11 @@ class Date
         'samedi',
     ];
 
+    const PUBLIC_HOLIDAYS = [
+        '01/01',
+        '01/05',
+    ];
+
     public static function getDaysCountInMonth(int $month, int $year)
     {
         $daysCount = [];
@@ -43,7 +48,9 @@ class Date
                 $daysCount[$dayNumber] = 0;
             }
 
-            $daysCount[$dayNumber]++;
+            if (!self::isPublicHoliday($date)) {
+                $daysCount[$dayNumber]++;
+            }
 
             $date->modify('+1 day');
         }
@@ -51,5 +58,10 @@ class Date
         ksort($daysCount);
 
         return $daysCount;
+    }
+
+    public function isPublicHoliday(DateTime $date)
+    {
+        return in_array($date->format('d/m'), self::PUBLIC_HOLIDAYS);
     }
 }
