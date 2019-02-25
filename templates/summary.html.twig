@@ -1,0 +1,43 @@
+<style>
+	.summary {
+		width: 60%;
+		border-collapse: collapse;
+	}
+
+	.summary th,
+	.summary td {
+		padding: 0mm 2mm;
+		border: solid 1px #ddd;
+	}
+
+	.summary td {
+		width: 80%;
+	}
+
+	.summary td.price {
+		width: 20%;
+		text-align: right;
+	}
+</style>
+
+<page backtop="7mm" backbottom="7mm" backleft="10mm" backright="10mm">
+    <page_header>
+    	Récapitulatif pour le mois {{ formatedDate }}
+    </page_header>
+
+    <page_footer>
+    </page_footer>
+
+	<table class="summary">
+		<tr>
+			<th>Nom</th>
+			<th>Total</th>
+		</tr>
+		{% for purchase in purchases %}
+			<tr>
+				<td>{{ purchase.customer.name }}</td>
+				<td class="price">{{ purchase.total }}</td>
+			</tr>
+		{% endfor %}
+	</table>
+ </page>

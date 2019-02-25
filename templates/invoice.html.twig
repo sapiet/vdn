@@ -102,31 +102,31 @@
     </page_footer>
 
 	<div class="company">
-		{{ company.name }}
+		{{ deliveryMan.getCompany().name }}
 		<br>
-		{{ company.address }}
-		{% if company.suburb %}
+		{{ deliveryMan.getCompany().address }}
+		{% if deliveryMan.getCompany().suburb %}
 			<br>
-			{{ company.suburb }}
+			{{ deliveryMan.getCompany().suburb }}
 		{% endif %}
 		<br>
-		{{ company.zipcode }} {{ company.city }}
+		{{ deliveryMan.getCompany().zipcode }} {{ deliveryMan.getCompany().city }}
 	</div>
 
 	<div class="customer">
-		{{ customer.name }}
+		{{ purchase.customer.name }}
 		<br>
-		{{ customer.address }}
-		{% if customer.suburb %}
+		{{ purchase.customer.address }}
+		{% if purchase.customer.suburb %}
 			<br>
-			{{ customer.suburb }}
+			{{ purchase.customer.suburb }}
 		{% endif %}
 		<br>
-		{{ customer.zipcode }} {{ customer.city }}
+		{{ purchase.customer.zipcode }} {{ purchase.customer.city }}
 	</div>
 
 	<h2 class="title">
-		Facturation pour le mois {{ formatedDate }}
+		Facturation pour le mois {{ purchase.formatedDate }}
 	</h2>
 
 	<table class="products">
@@ -145,7 +145,7 @@
 			</th>
 		</tr>
 
-		{% for product in customerProducts %}
+		{% for product in purchase.products %}
 		    <tr>
 				<td class="designation">
 					{{ product.designation }}
@@ -174,7 +174,7 @@
 				Total *
 			</td>
 			<td class="text-right">
-				{{ total }}
+				{{ purchase.total }}
 			</td>
 		</tr>
 	</table>
@@ -183,7 +183,7 @@
 
 	<p>
 		Les chèques sont à établir à l'ordre de
-		et à envoyer ou déposer avant le {{ formatedLimitPaymentDate }} à:
+		et à envoyer ou déposer avant le {{ purchase.formatedLimitPaymentDate }} à:
 		<br>
 		<br>
 		<div class="delivery-man">
