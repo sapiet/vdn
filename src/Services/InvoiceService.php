@@ -2,12 +2,16 @@
 
 namespace App\Services;
 
+use DateTime;
+use DateInterval;
+use DateTimeImmutable;
 use DateTimeInterface;
 use Twig\Environment;
 use Spipu\Html2Pdf\Html2Pdf;
 use App\Entity\Customer;
 use App\Entity\DeliveryMan;
 use App\Entity\Subscription;
+use App\Repository\DeliveryManRepository;
 use App\Repository\ProductRepository;
 use App\Services\Date;
 
@@ -16,14 +20,17 @@ class InvoiceService
     const CURRENCY = '€';
 
     private $templating;
+    private $deliveryManRepository;
 	private $productRepository;
 	private $html;
 
 	public function __construct(
         Environment $templating,
+        DeliveryManRepository $deliveryManRepository,
 		ProductRepository $productRepository
 	) {
         $this->templating = $templating;
+        $this->deliveryManRepository = $deliveryManRepository;
 		$this->productRepository = $productRepository;
 	}
 
@@ -122,7 +129,7 @@ class InvoiceService
         $this->html .= $this->templating->render('summary.html.twig', $templateVars);
     }
 
-    public function process(DeliveryMan $deliveryMan, DateTimeInterface $date, array $selectedCustomers)
+    public function process(DeliveryMan $deliveryMan, DateTimeInterface $date, array $selectedCustomers = [], array $output = [])
     {
 		$month = (int) $date->format('m');
         $year = (int) $date->format('Y');
@@ -136,6 +143,20 @@ class InvoiceService
 
         $html2pdf = new Html2Pdf();
         $html2pdf->writeHTML($this->html);
-        $html2pdf->output();
+
+        if ($output) {
+            return $html2pdf->output($output['name'], $output['mode']);
+        } else {
+            return $html2pdf->output();
+        }
 	}
+
+    public function export(int $deliveryManId, DateTimeInterface $date)
+    {
+        $deliveryMan = $this->deliveryManRepository->find($deliveryManId);
+        $name = 'factures-'.$date->format('m-Y').'.pdf';
+        dump('Generating '.$name);
+        $pdfContent = $this->process($deliveryMan, $date, [], ['name' => '', 'mode' => 'S']);
+        file_put_contents($name, $pdfContent);
+    }
 }

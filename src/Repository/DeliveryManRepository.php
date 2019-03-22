@@ -2,6 +2,14 @@
 
 namespace App\Repository;
 
-class DeliveryManRepository extends \Doctrine\ORM\EntityRepository
+use App\Entity\DeliveryMan;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Bridge\Doctrine\RegistryInterface;
+
+class DeliveryManRepository extends ServiceEntityRepository
 {
+    public function __construct(RegistryInterface $registry)
+    {
+        parent::__construct($registry, DeliveryMan::class);
+    }
 }
